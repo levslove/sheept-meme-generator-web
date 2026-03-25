@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meme Generator Web — Interactive Demo</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body { font-family: 'Inter', sans-serif; }
+    .step-card { transition: opacity 0.4s ease, transform 0.4s ease; }
+    .step-card.hidden { display: none; }
+    .step-card.block { display: block; animation: fadeIn 0.4s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+  </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <!-- Progress Bar -->
+  <div class="fixed top-0 left-0 w-full h-1 bg-gray-200 z-50">
+    <div id="progress" class="h-full bg-indigo-600 transition-all duration-500" style="width: 16%"></div>
+  </div>
+  <!-- Header -->
+  <header class="bg-white border-b border-gray-100 py-6">
+    <div class="max-w-3xl mx-auto px-6">
+      <h1 class="text-3xl font-bold text-gray-900">Meme Generator Web</h1>
+      <p class="text-gray-500 mt-1">A meme generator web app where users can describe a meme they want in text, optionally upload an image as a template/ref</p>
+    </div>
+  </header>
+  <!-- Steps -->
+  <main class="max-w-3xl mx-auto px-6 py-10">
+    <p class="text-sm text-gray-400 mb-6">Step <span id="currentStep">1</span> of 6</p>
+    
+    <div class="step-card block" data-step="0">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-indigo-100 text-indigo-700 font-bold rounded-full w-10 h-10 flex items-center justify-center text-lg">1</span>
+          <h3 class="text-2xl font-bold text-gray-900">Register &amp; Get API Key</h3>
+        </div>
+        <p class="text-gray-600 mb-6">Create an account and receive your auth token.</p>
+        <div class="bg-gray-900 rounded-xl p-5 mb-4 overflow-x-auto">
+          <p class="text-green-400 font-mono text-sm mb-2">POST /v1/register</p>
+          <pre class="text-gray-300 font-mono text-sm whitespace-pre-wrap">{&quot;email&quot;: &quot;demo@example.com&quot;}</pre>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+          <p class="text-gray-500 font-mono text-xs mb-2">Response:</p>
+          <pre class="text-gray-800 font-mono text-sm whitespace-pre-wrap">{&quot;user_id&quot;: &quot;abc123&quot;, &quot;token&quot;: &quot;sk-demo-xxx&quot;, &quot;credits&quot;: 50}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="step-card hidden" data-step="1">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-indigo-100 text-indigo-700 font-bold rounded-full w-10 h-10 flex items-center justify-center text-lg">2</span>
+          <h3 class="text-2xl font-bold text-gray-900">Create a Item</h3>
+        </div>
+        <p class="text-gray-600 mb-6">Add a new item to the system.</p>
+        <div class="bg-gray-900 rounded-xl p-5 mb-4 overflow-x-auto">
+          <p class="text-green-400 font-mono text-sm mb-2">POST /items</p>
+          <pre class="text-gray-300 font-mono text-sm whitespace-pre-wrap">{&quot;name&quot;: &quot;Demo Item&quot;, &quot;data&quot;: &quot;{}&quot;}</pre>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+          <p class="text-gray-500 font-mono text-xs mb-2">Response:</p>
+          <pre class="text-gray-800 font-mono text-sm whitespace-pre-wrap">{&quot;id&quot;: &quot;item_001&quot;, &quot;name&quot;: &quot;Demo Item&quot;, &quot;created_at&quot;: &quot;2025-01-01T00:00:00Z&quot;}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="step-card hidden" data-step="2">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-indigo-100 text-indigo-700 font-bold rounded-full w-10 h-10 flex items-center justify-center text-lg">3</span>
+          <h3 class="text-2xl font-bold text-gray-900">Create a Review</h3>
+        </div>
+        <p class="text-gray-600 mb-6">Add a new review to the system.</p>
+        <div class="bg-gray-900 rounded-xl p-5 mb-4 overflow-x-auto">
+          <p class="text-green-400 font-mono text-sm mb-2">POST /reviews</p>
+          <pre class="text-gray-300 font-mono text-sm whitespace-pre-wrap">{&quot;name&quot;: &quot;Demo Review&quot;, &quot;data&quot;: &quot;{}&quot;}</pre>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+          <p class="text-gray-500 font-mono text-xs mb-2">Response:</p>
+          <pre class="text-gray-800 font-mono text-sm whitespace-pre-wrap">{&quot;id&quot;: &quot;item_001&quot;, &quot;name&quot;: &quot;Demo Review&quot;, &quot;created_at&quot;: &quot;2025-01-01T00:00:00Z&quot;}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="step-card hidden" data-step="3">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-indigo-100 text-indigo-700 font-bold rounded-full w-10 h-10 flex items-center justify-center text-lg">4</span>
+          <h3 class="text-2xl font-bold text-gray-900">Create a Rating</h3>
+        </div>
+        <p class="text-gray-600 mb-6">Add a new rating to the system.</p>
+        <div class="bg-gray-900 rounded-xl p-5 mb-4 overflow-x-auto">
+          <p class="text-green-400 font-mono text-sm mb-2">POST /ratings</p>
+          <pre class="text-gray-300 font-mono text-sm whitespace-pre-wrap">{&quot;name&quot;: &quot;Demo Rating&quot;, &quot;data&quot;: &quot;{}&quot;}</pre>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+          <p class="text-gray-500 font-mono text-xs mb-2">Response:</p>
+          <pre class="text-gray-800 font-mono text-sm whitespace-pre-wrap">{&quot;id&quot;: &quot;item_001&quot;, &quot;name&quot;: &quot;Demo Rating&quot;, &quot;created_at&quot;: &quot;2025-01-01T00:00:00Z&quot;}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="step-card hidden" data-step="4">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-indigo-100 text-indigo-700 font-bold rounded-full w-10 h-10 flex items-center justify-center text-lg">5</span>
+          <h3 class="text-2xl font-bold text-gray-900">Create a Categorie</h3>
+        </div>
+        <p class="text-gray-600 mb-6">Add a new categorie to the system.</p>
+        <div class="bg-gray-900 rounded-xl p-5 mb-4 overflow-x-auto">
+          <p class="text-green-400 font-mono text-sm mb-2">POST /categories</p>
+          <pre class="text-gray-300 font-mono text-sm whitespace-pre-wrap">{&quot;name&quot;: &quot;Demo Categorie&quot;, &quot;data&quot;: &quot;{}&quot;}</pre>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+          <p class="text-gray-500 font-mono text-xs mb-2">Response:</p>
+          <pre class="text-gray-800 font-mono text-sm whitespace-pre-wrap">{&quot;id&quot;: &quot;item_001&quot;, &quot;name&quot;: &quot;Demo Categorie&quot;, &quot;created_at&quot;: &quot;2025-01-01T00:00:00Z&quot;}</pre>
+        </div>
+      </div>
+    </div>
+    <div class="step-card hidden" data-step="5">
+      <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 mb-6">
+        <div class="flex items-center gap-3 mb-4">
+          <span class="bg-indigo-100 text-indigo-700 font-bold rounded-full w-10 h-10 flex items-center justify-center text-lg">6</span>
+          <h3 class="text-2xl font-bold text-gray-900">View Dashboard</h3>
+        </div>
+        <p class="text-gray-600 mb-6">See all your data in one place.</p>
+        <div class="bg-gray-900 rounded-xl p-5 mb-4 overflow-x-auto">
+          <p class="text-green-400 font-mono text-sm mb-2">GET /v1/dashboard</p>
+          <pre class="text-gray-300 font-mono text-sm whitespace-pre-wrap">— (no body)</pre>
+        </div>
+        <div class="bg-gray-50 rounded-xl p-5 border border-gray-200">
+          <p class="text-gray-500 font-mono text-xs mb-2">Response:</p>
+          <pre class="text-gray-800 font-mono text-sm whitespace-pre-wrap">{&quot;total_items&quot;: 1, &quot;status&quot;: &quot;active&quot;}</pre>
+        </div>
+      </div>
+    </div>
+    <!-- Navigation -->
+    <div class="flex justify-between items-center mt-8">
+      <button id="prevBtn" onclick="navigate(-1)" class="px-6 py-3 rounded-xl bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 transition disabled:opacity-40" disabled>← Previous</button>
+      <button id="nextBtn" onclick="navigate(1)" class="px-6 py-3 rounded-xl bg-indigo-600 text-white font-semibold hover:bg-indigo-700 transition">Next →</button>
+    </div>
+  </main>
+  <!-- Footer -->
+  <footer class="text-center py-8 text-gray-400 text-sm">
+    Built with 🐑 DemoSheep — <a href="https://shpt.ai" class="underline hover:text-indigo-600">shpt.ai</a>
+  </footer>
+  <script>
+    let current = 0;
+    const total = 6;
+    function navigate(dir) {
+      const cards = document.querySelectorAll('.step-card');
+      cards[current].classList.remove('block'); cards[current].classList.add('hidden');
+      current = Math.max(0, Math.min(total - 1, current + dir));
+      cards[current].classList.remove('hidden'); cards[current].classList.add('block');
+      document.getElementById('currentStep').textContent = current + 1;
+      document.getElementById('progress').style.width = ((current + 1) / total * 100) + '%';
+      document.getElementById('prevBtn').disabled = current === 0;
+      document.getElementById('nextBtn').textContent = current === total - 1 ? '✓ Done' : 'Next →';
+    }
+  </script>
+</body>
+</html>
